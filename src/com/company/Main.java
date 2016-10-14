@@ -6,34 +6,12 @@ public class Main {
 
     public static void main(String[] args) {
         int[] aaa = {5, 9, 15, 82, 47, 611, 2, 1, 4, 3, 88};
-        //insertSort(aaa);
+        insertSort(aaa);
         selectSort(aaa);
-        //Insertsort1(aaa,aaa.length);
+        quickSort(aaa,0,aaa.length-1);
         System.out.println(Arrays.toString(aaa));
 
     }
-
-
-
-
-
-
-    static void Insertsort1(int a[], int n) {
-        int i, j, k;
-        for (i = 1; i < n; i++) {
-            for (j = i - 1; j >= 0; j--)
-                if (a[j] < a[i])
-                    break;
-
-            if (j != i - 1) {
-                int temp = a[i];
-                for (k = i - 1; k > j; k--)
-                    a[k + 1] = a[k];
-                a[k + 1] = temp;
-            }
-        }
-    }
-
 
     public static void selectSort(int[] a){
         //int start = 0;
@@ -41,7 +19,6 @@ public class Main {
         int min;
         int minStep = 0;
         while (step < a.length){
-
             min = a[step];
             minStep = step;
             for(int i = step;i<a.length;i++){
@@ -52,12 +29,8 @@ public class Main {
             }//for 找最小
             swap(a,minStep,step);
             step++;
-
         }
     }
-
-
-
 
     private static void insertSort(int[] a) {
         int step = 1;//[0,step]有序
@@ -72,6 +45,27 @@ public class Main {
             a[i + 1] = temp;
             step++;
         }//while
+    }
+
+    private static void quickSort(int a[], int low, int high){
+        if(low<high){
+            int l = low;
+            int h = high;
+            while (h > l){
+                for(;h>l;h--){
+                    if(a[h]<a[low])
+                        break;
+                }
+                for(;l<h;l++){
+                    if(a[l] > a[low])
+                        break;
+                }
+                swap(a,h,l);
+            }
+            swap(a, low,l);
+            quickSort(a,low, h -1);
+            quickSort(a, h +1,high);
+        }
     }
 
     private static void moveElement(int a[], int start, int end) {
